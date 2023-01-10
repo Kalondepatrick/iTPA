@@ -13,23 +13,12 @@ library(ggplot2)
 
 #-------------      Setting up a working directory -----------------#
 
-setwd("~/Documents/GISFolder/Institutions/MLW/Malaria/iTPA") ## iTPA Working directory on Patrick's computer
+#setwd("~/Documents/GISFolder/Institutions/MLW/Malaria/iTPA") ## iTPA Working directory on Patrick's computer
 
 #-------------        Reading the data files         ---------------#
 
-rdt <- read_csv("delimited/rdt.csv") #DHS RDT 
-microscopy <- read_csv("delimited/microscopy.csv") #DHS Microscopy
-rdt2 <- rdt
-moh <- read_csv("delimited/moh.csv") #The file was obtained from Donnie. The file was modified to add '-' for two facilities namely kayelekera and Grace 
-malawi <- st_read("Vector/malawi/mwi_admbnda_adm0_nso_20181016.shp")
-districts = st_read("Vector/malawi/mwi_admbnda_adm2_nso_20181016.shp")
-
-#----TO BE REMOVED LATER
-new_cat = st_read("Vector/catchments/catchments.shp")
-old_cat = st_read("Vector/catchments/old/old_cat.shp")
-
-## Cleaning of DHIS2 Data
-
+rdt <- read_csv("inputs/DHIS2/rdt.csv") #DHS RDT 
+microscopy <- read_csv("inputs/DHIS2/microscopy.csv")#DHS Microscopy
 
 #-----------------------------------------------------------------------------------------------------------#
 #----------------     PROCEDURE FOR CLEANING DHIS2 DATA   --------------------------------------------------#
@@ -80,7 +69,7 @@ DHIS2cleaning <- function (outcome) {
 
 #----- applying the function on DHIS2 data
 
-rdt <- DHIS2cleaning(rdt2)  #--------RDT confirmed cases
+rdt <- DHIS2cleaning(rdt)  #--------RDT confirmed cases
 microscopy <- DHIS2cleaning(microscopy)  #--------Microscopy confirmed cases
 
 #------------- rename cases column to reflect the outcome measure
@@ -101,12 +90,9 @@ malaria2 = malaria_data #To be replaced by combined dataset RDT and microsocopy
 malaria2$facility=as.factor(malaria2$facility)
 #
 malaria2 =spread(malaria2, date, cases)
-list(malaria2$facility)
+
 #Get a list of facilities on DHIS 2
-
 list(malaria2$facility)
-
-head(select(malaria2, -facility))
 
 #Get a list of facilities that have no data (NA's)
 
