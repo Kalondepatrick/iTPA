@@ -26,13 +26,13 @@ This script was developed to help cleaning of DHIS 2 data and here is the breakd
     rdt <- read_csv("inputs/DHIS2/rdt.csv") #DHS RDT 
     microscopy <- read_csv("inputs/DHIS2/microscopy.csv")#DHS Microscopy
 
-## The problems with the data
+## A snapshot of raw DHIS2 data
 
 ![](graphics/problem.png)
 
-## Procedure for data Cleaning
+## Problems with DHIS2 data and cleaning procedure 
 
-First, looking at the data from DHIS2. Facility names have a prefix indicating the outcome being presented. This prefix has to be removed
+Cleaning DHIS2 data is one of the core goals of ITPA project. We first examined DHIS2 data and we recommended that first the prefix attached to facility names have to be removed (check the image above). Then the data has to be transformed from wide format to long format. Lastly, the dates have to be properly formatted.
 
     DHIS2cleaning <- function (outcome) {
       #Remove unnecessary columns for dates
@@ -76,7 +76,7 @@ First, looking at the data from DHIS2. Facility names have a prefix indicating t
 
 ## Application of the developed procedure on DHIS2 Data
 
-#----- applying the function on DHIS2 data
+The developed procedure has been applied on data that was downloaded from DHIS2 website. The cases on DHIS2 are reported based on the method that was used to confirm an infection. There are two primary methods that are used for this. These methods are: (1) the use of microscopy; and (2) RDT. We have utilized the two datasets and combined them to produce a single file for facility confirmed malaria cases.
 
     rdt <- DHIS2cleaning(rdt)  #--------RDT confirmed cases
     microscopy <- DHIS2cleaning(microscopy)  #--------Microscopy confirmed cases
@@ -122,3 +122,7 @@ First, looking at the data from DHIS2. Facility names have a prefix indicating t
 
     # This file CSV is to be used for joining and other operations
     DHIS2  = data_no_na
+
+In the final data file, we have a row for each of the health facilities and columns representing each time point (months). The structure of this file will easily enable joining of malaria case data to health facilities geographical coordinates.
+
+![](graphics/final.png)
