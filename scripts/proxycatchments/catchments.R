@@ -1,8 +1,28 @@
-
-#------------ Prepare data for modelling
-#--------------------------------------------------#
 #------ generate catchment areas------------------#
 
+#------ Data resources
+
+a =facilities.cases
+
+b = as.data.frame(st_coordinates(facilities.cases))
+
+b = rename(b, X_COORD = X, Y_COORD = Y)
+
+write.csv(b, file = "delimited/points.csv", row.names = FALSE)
+
+sabela =facilities.cases[,1:4]
+
+frictionsurface <- raster("Raster/traveldistance/frictionsurface/frictionsurface.tiff") #Read Friction surface
+
+# Data preparation
+
+
+# change resolution of raster to 100 meters 0.0009009009
+#disaggregate from 40x40 resolution to 10x10 (factor = 9)
+frictionsurface <- disaggregate(frictionsurface, fact=2)
+res(frictionsurface)
+
+# Function for development of catchment areas
 
 FacilityCatchment <- function (frictionsurface, points, malawi, sabela) {
   
@@ -82,24 +102,6 @@ FacilityCatchment <- function (frictionsurface, points, malawi, sabela) {
   return(a)
 }
 
-#---- Data for this task
-
-a =facilities.cases
-
-b = as.data.frame(st_coordinates(facilities.cases))
-
-b = rename(b, X_COORD = X, Y_COORD = Y)
-
-write.csv(b, file = "delimited/points.csv", row.names = FALSE)
-
-sabela =facilities.cases[,1:4]
-
-frictionsurface <- raster("Raster/traveldistance/frictionsurface/frictionsurface.tiff") #Read Friction surface
-# change resolution of raster to 100 meters 0.0009009009
-
-#disaggregate from 40x40 resolution to 10x10 (factor = 9)
-frictionsurface <- disaggregate(frictionsurface, fact=2)
-res(frictionsurface)
 
 
 points <- read.csv("delimited/points.csv") # Read in the points table
