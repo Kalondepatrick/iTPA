@@ -4,6 +4,7 @@ This script was developed to help cleaning of DHIS 2 data and here is the breakd
 
 #----- This script helps cleaning of DHIS 2 data to be ready for joining with spatial data for health facilities across Malawi 
 
+```
 #-------------      Loading of data packages   ---------------------#
 
 library(readr)
@@ -15,6 +16,10 @@ library("tools")
 library(tidyr)
 library(ggplot2)
 
+```
+## Reading data files 
+
+```
 #-------------      Setting up a working directory -----------------#
 
 #setwd("~/Documents/GISFolder/Institutions/MLW/Malaria/iTPA") ## iTPA Working directory on Patrick's computer
@@ -24,13 +29,14 @@ library(ggplot2)
 rdt <- read_csv("inputs/DHIS2/rdt.csv") #DHS RDT 
 microscopy <- read_csv("inputs/DHIS2/microscopy.csv")#DHS Microscopy
 
-#-----------------------------------------------------------------------------------------------------------#
-#----------------     PROCEDURE FOR CLEANING DHIS2 DATA   --------------------------------------------------#
-#-----------------------------------------------------------------------------------------------------------
-
-## First, looking at the data from DHIS2. Facility names have a prefix indicating the outcome being presented. This prefix has to be removed 
+```
 
 
+## Procedure for data Cleaning
+
+First, looking at the data from DHIS2. Facility names have a prefix indicating the outcome being presented. This prefix has to be removed 
+
+```
 DHIS2cleaning <- function (outcome) {
   #Remove unnecessary columns for dates
   outcome <- outcome[, !(colnames(outcome) %in% c("periodid", "periodcode", "perioddescription"))]
@@ -70,9 +76,12 @@ DHIS2cleaning <- function (outcome) {
   
   return(outcome)
 }
+```
+## Application of the developed procedure on DHIS2 Data
 
 #----- applying the function on DHIS2 data
 
+```
 rdt <- DHIS2cleaning(rdt)  #--------RDT confirmed cases
 microscopy <- DHIS2cleaning(microscopy)  #--------Microscopy confirmed cases
 
@@ -103,6 +112,10 @@ list(malaria2$facility)
 p = as.vector(colnames(malaria2))
 p = p[p!= "facility"]
 
+```
+## Resulting files
+
+```
 #--------- Facilities that do not report data on malaria cases
 
 data_na <- malaria2 %>% 
@@ -115,6 +128,6 @@ data_no_na <- malaria2 %>%
 
 # This file CSV is to be used for joining and other operations
 DHIS2  = data_no_na
-
+```
 
 
