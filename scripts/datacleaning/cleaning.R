@@ -28,6 +28,7 @@ microscopy <- read_csv("inputs/DHIS2/microscopy.csv")#DHS Microscopy
 
 
 DHIS2cleaning <- function (outcome) {
+  
   #Remove unnecessary columns for dates
   outcome <- outcome[, !(colnames(outcome) %in% c("periodid", "periodcode", "perioddescription"))]
   #Rename prefix
@@ -86,9 +87,37 @@ malaria_data <- rdt %>%
 
 malaria_data = dplyr::select (malaria_data,-c(microscopy,rdt))
 
+#Create a nested function for the process above
+
+#-------------
+## ensure the date column is in the appropriate format
+#malaria_data$date <- as.Date(malaria_data$date)
+library(tidyverse)
+# Convert to class date
+malaria_data <- malaria_data %>% 
+  mutate(date_onset = as.Date(date, format = "%b_%Y_%d"))
+
+#remove na's
+
+malaria_data2 = na.omit(malaria_data)
+
+#summarize by date
+
+temp_data <- malaria_data2 %>% 
+  group_by(date_onset) %>% 
+  summarise(cases = as.numeric(sum(cases)))
+
+## plot a line graph of cases by week
+ggplot(temp_data, aes(x = date_onset, y = cases)) + 
+  geom_line()
+
+# ----------- Restructuring the data for spatial operations
+
 malaria2 = malaria_data #To be replaced by combined dataset RDT and microsocopy
 malaria2$facility=as.factor(malaria2$facility)
-#
+
+#Nested function should be created for the process above
+
 malaria2 =spread(malaria2, date, cases)
 
 #Get a list of facilities on DHIS 2
