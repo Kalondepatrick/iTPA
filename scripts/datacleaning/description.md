@@ -32,7 +32,7 @@ This script was developed to help cleaning of DHIS 2 data and here is the breakd
 
 ## Problems with DHIS2 data and cleaning procedure 
 
-Cleaning DHIS2 data is one of the core goals of ITPA project. We first examined DHIS2 data and we recommended that first the prefix attached to facility names have to be removed (check the image above). Then the data has to be transformed from wide format to long format. Lastly, the dates have to be properly formatted.
+Cleaning DHIS2 data is one of the core goals of ITPA project. We first examined DHIS2 data and we recommended that first the prefix attached to facility names have to be removed (check the image above). Then the data has to be transformed from wide format to long format. Lastly, the dates have to be properly formatted. A nested function as been created to acieve tis.
 
     DHIS2cleaning <- function (outcome) {
       #Remove unnecessary columns for dates
