@@ -20,6 +20,35 @@ library("tools")
 library(tidyr)
 library(ggplot2)
 
+#Simulated example
+
+
+#Simulate cases for years 2016,2016,2017,2018,2019
+
+#data$cases*
+seq2015 = seq(from = 600, to = 1600, by = 3)
+data$cases2015 = sample(seq2015, size =535, replace = TRUE)
+
+seq2016 = seq(from = 600, to = 1600, by = 3)
+data$cases2016 = sample(seq2016, size =535, replace = TRUE)
+
+seq2017 = seq(from = 600, to = 1600, by = 3)
+data$cases2017 = sample(seq2017, size =535, replace = TRUE)
+
+seq2018 = seq(from = 600, to = 1600, by = 3)
+data$cases2018 = sample(seq2018, size =535, replace = TRUE)
+
+seq2019 = seq(from = 600, to = 1600, by = 3)
+data$cases2019 = sample(seq2019, size =535, replace = TRUE)
+
+seqE = seq(from = 600, to = 1600, by = 3)
+data$expected = sample(seqE, size =535, replace = TRUE)
+
+seqpop = seq(from = 500, to = 60000, by = 1)
+data$population = sample(seqpop, size =535, replace = TRUE)
+
+seqsir = seq(from = 0, to = 1, by = 0.001)
+data$SIR = sample(seqsir, size =535, replace = TRUE)
 
 
 

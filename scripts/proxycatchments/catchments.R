@@ -108,3 +108,5 @@ points <- read.csv("delimited/points.csv") # Read in the points table
 sabela =facilities.cases[,1:4]
 catchmentsHosp_simp2 <- FacilityCatchment(frictionsurface, points, malawi, sabela)
 catchments = catchmentsHosp_simp2[,-c(2,3)]
+
+#Produces catchment areas of facilities that we have data for
