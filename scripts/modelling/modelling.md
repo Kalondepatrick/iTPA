@@ -2,8 +2,6 @@
 
 We first perfom data cleaning as below:
 
-
-
 We have reported malaria cases for all teh districts across Malawi as in the figure below:
 ![](graphics/totalcases.png)
 
