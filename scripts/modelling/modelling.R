@@ -32,6 +32,8 @@ map = readOGR("inputs/catchments/catchments.shp")
 malaria = read_csv("outputs/delimited/dhis_wide.csv")
 d = read_csv("outputs/delimited/malariadata.csv")
 
+#---- Data preparation
+
 
 #---- Reformat malria data, replace "-" with "_"
 
@@ -65,18 +67,7 @@ map_sf2$date = gsub("_","-",map_sf2$date)
 
 map_sf2$date = lubridate::ymd(map_sf2$date)
 
-# map_sf2 = na.omit(map_sf2)
- 
- 
-
-#---- Modelling starts here
-
-#--- Start with basic GLM
-
-logit_base = glm(cases ~pop2020,
-                 data =d, family = 'poisson')
-
-# --- INLA MODEL
+# --- Preparation of data for INLA
 
 #---- Neighborhood matrix to define spatial random effect
 
@@ -88,6 +79,73 @@ malawi_graph = nb2mat(nb, style = 'B', zero.policy = TRUE)
 map_sf2$idarea <- as.numeric(as.factor(map_sf2$facility))
 map_sf2$idate <- as.numeric(as.factor(map_sf2$date))
 #map_sf2$idate <- 1 + map_sf2$date - min(map_sf2$date)
+
+#---- Here is how the data looks
+
+#--- Across space
+
+map_space = map_sf2
+map_space = na.omit(map_space)
+
+map_space2 = map_space %>%
+  group_by(facility) %>%
+  summarize(
+    total = sum(cases)
+  )
+
+plot(map_space2)
+
+# create leaflet plot
+library(tmap)
+tmap_mode("view")
+facetmaps <- tm_shape(map_space2) +
+  tm_borders()+
+  tm_fill(col ='total', palette = "OrRd")
+facetmaps
+
+#Plot the cases since 2015 for all the facilities
+
+#--- Across time
+
+#---- Visualizing temporal
+
+g <- ggplot(map_sf2, aes(x = date, y = cases, 
+                         group = facility, color = facility)) +
+  geom_line() + geom_point(size = 2) + theme_bw()
+g
+
+g <- g + theme(legend.position = "none")
+g
+
+library(gghighlight)
+g + gghighlight(facility == "Kasungu District Hospital")
+
+# animate the top 20 facilities and how the cases change with time
+
+#--- Visualizing changes in cases with time -----------#
+
+library(gganimate)
+c = ggplot(map_sf2) + geom_sf(aes(fill = cases)) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank()
+  ) +
+  scale_fill_gradient2(
+    midpoint = 1, low = "blue", mid = "white", high = "red"
+  ) +
+  transition_time(date) +
+  labs(title = "Month: {round(frame_time, 0)}")
+c
+
+
+#---- Modelling fitting ----#
+
+#--- Start with basic GLM
+
+logit_base = glm(cases ~pop2020,
+                 data =d, family = 'poisson')
 
 #--- model fitting
 map_sf2 = na.omit(map_sf2)
@@ -192,36 +250,9 @@ b = ggplot(map_sf2) + geom_sf(aes(fill = RR)) +
 b
 
 
-#--- Visualizing changes in cases with time -----------#
-
-library(gganimate)
-c = ggplot(map_sf2) + geom_sf(aes(fill = cases)) +
-  theme_bw() +
-  theme(
-    axis.text.x = element_blank(),
-    axis.text.y = element_blank(),
-    axis.ticks = element_blank()
-  ) +
-  scale_fill_gradient2(
-    midpoint = 1, low = "blue", mid = "white", high = "red"
-  ) +
-  transition_time(date) +
-  labs(title = "Month: {round(frame_time, 0)}")
-c
 
 
-#---- Visualizing tempral
 
-g <- ggplot(map_sf2, aes(x = date, y = cases, 
-                   group = facility, color = facility)) +
-  geom_line() + geom_point(size = 2) + theme_bw()
-g
-
-g <- g + theme(legend.position = "none")
-g
-
-library(gghighlight)
-g + gghighlight(facility == "Kasungu District Hospital")
 
 #---- Areas of improvement
 #Add a basemap
