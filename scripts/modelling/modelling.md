@@ -1,6 +1,8 @@
 **Our data at glance**
 
-Based on the cases reported on DHIS , it has been observed that during the study period, majority of the malaria cases were reported in few facilities. These facilities include district hospitals such as Salima, Kasungu, Nkhotakota District Hospital, Nkhata Bay, Balaka, Mulanje, Mwanza and Machinga; rural hospitals such as Mponela and Chintheche. The full details of the cumulative cases at sub-district level has been presented in the figure below: ![](graphics/totalcases.png)
+Based on the cases reported on DHIS , it has been observed that during the study period, majority of the malaria cases were reported in few facilities. These facilities include district hospitals such as Salima, Kasungu, Nkhotakota District Hospital, Nkhata Bay, Balaka, Mulanje, Mwanza and Machinga; rural hospitals such as Mponela and Chintheche. The full details of the cumulative cases at sub-district level has been presented in the figure below:
+
+![Cumulative malaria cases during the study period](graphics/totalcases.png)
 
 It is also well known that malaria is seasonal - cases of malaria peak during the rain-season and they drop during the dry-season. Irregardless of that, there are variations in malaria cases across the facilities with time. Below the changes in malaria cases with time have been visualized.
 
