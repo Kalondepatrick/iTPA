@@ -19,7 +19,8 @@ pacman::p_load(sf,               # Spatial files
                cvms,
                dplyr,
                klaR,
-               tidyr
+               tidyr,
+               gghighlight
                
 )
 
@@ -103,6 +104,8 @@ facetmaps <- tm_shape(map_space2) +
   tm_fill(col ='total', palette = "OrRd")
 facetmaps
 
+#Find a way to visualize my tmaps interactively on github
+
 #Plot the cases since 2015 for all the facilities
 
 #--- Across time
@@ -122,7 +125,38 @@ g + gghighlight(facility == "Kasungu District Hospital")
 
 # animate the top 20 facilities and how the cases change with time
 
+g + transition_reveal(date)
+
+#--- Top ten
+top_10 = c("Salima District Hospital", "Nkhotakota District Hospital","	
+Kasungu District Hospital","Nkhata Bay District Hospital", "Balaka District Hospital", "Mulanje District Hospital", "Mwanza District Hospital", "Machinga District Hospital", "Mponela Rural Hospital", "Chintheche Rural Hospital")
+
 #--- Visualizing changes in cases with time -----------#
+
+#top10_data = unique(map_sf2, by = top_10)
+top10_data = map_sf2 %>% 
+ subset(facility %in% top_10)
+
+#--- Plotting
+
+t <- ggplot(top10_data, aes(x = date, y = cases, 
+                         group = facility, color = facility)) +
+  geom_line() + geom_point(size = 2) + theme_bw()
+t
+
+#t <- t + theme(legend.position = "none")
+t
+
+library(gghighlight)
+t + gghighlight(facility == "Kasungu District Hospital")
+
+# animate the top 20 facilities and how the cases change with time
+
+tm = t + transition_reveal(date)
+tm
+
+#Cumulative cases with time visualized as a a verical bar chart 
+
 
 library(gganimate)
 c = ggplot(map_sf2) + geom_sf(aes(fill = cases)) +
@@ -139,6 +173,8 @@ c = ggplot(map_sf2) + geom_sf(aes(fill = cases)) +
   labs(title = "Month: {round(frame_time, 0)}")
 c
 
+#----  Adding covariates  ----#
+#---- Elevation
 
 #---- Modelling fitting ----#
 
@@ -258,3 +294,5 @@ b
 #Add a basemap
 #Check modelling framework
 #Add covariates
+
+#When I predict malaria cases using these variables, do I accurately predict the cases?

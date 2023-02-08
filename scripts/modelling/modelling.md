@@ -1,10 +1,28 @@
 **Our data at glance**
 
-We first perfom data cleaning as below:
+Based on the cases reported on DHIS , it has been observed that during the study period, majority of the malaria cases were reported in few facilities. These facilities include district hospitals such as Salima, Kasungu, Nkhotakota District Hospital, Nkhata Bay, Balaka, Mulanje, Mwanza and Machinga; rural hospitals such as Mponela and Chintheche. The full details of the cumulative cases at sub-district level has been presented in the figure below: ![](graphics/totalcases.png)
 
-We have reported malaria cases for all teh districts across Malawi as in the figure below:
-![](graphics/totalcases.png)
+It is also well known that malaria is seasonal - cases of malaria peak during the rain-season and they drop during the dry-season. Irregardless of that, there are variations in malaria cases across the facilities with time. Below the changes in malaria cases with time have been visualized.
 
-Equally, across time the cases of malaria are as below:
+![](graphics/cases_time.gif)
 
-![](graphics/acrosstime.png)
+**Explaining the observed patterns?**
+
+It is of interest to understand why some facilities report high malaria cases than others. Obviously, differences in population that is served by a facility can explain this (a facility that serve 10,000 people is expected to report more cases than a facility that serve only 100 people). But there can be more to this question. Environmental factors such as existence of permanent water bodies that sustain mosquito population can be one reason that can equally contribute to more malaria cases in one location and its absence can explain why some facilities report less cases. This list can extend to morphological characteristics such as elevation, and climatic parameters such as temperature and precipitation. The World Health Organization (WHO) indicated that malaria cases might also vary because of socio-economic factors, existence of vector control programs and accessibility of mosquito nets. But we also know that the cases can be affected by simply time of the year (a month that has more cases can influence other months to have more cases) or location of the facility (a location with more cases is likely to influence its neighbors to have more cases). In this section of the study, we intend to quantify spatio-temporal patterns of malaria cases, and model it to available environmental, climatic and socio-economic data to explain the observed patterns. This modelling use a poisson model implemented using Integrated Nested Laplace Approximation (INLA) implemented in R environment.
+
+**Data resources**
+
+| Variable                                  | Source and year | Remark |
+|-------------------------------------------|-----------------|--------|
+| Altitude                                  | USGS            |        |
+| Temperature                               |                 |        |
+| Humidity                                  |                 |        |
+| Rainfall                                  |                 |        |
+| Proximity to water bodies                 |                 |        |
+| Land Use                                  |                 |        |
+| Vector distribution                       |                 |        |
+| Social demographic characteristics        |                 |        |
+| Access to Anti malaria treatment          |                 |        |
+| Implementation of vector control programs |                 |        |
+
+: Possible explanatory variables for differences in malaria transmission (Source: WHO)
