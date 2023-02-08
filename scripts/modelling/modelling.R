@@ -105,6 +105,7 @@ facetmaps <- tm_shape(map_space2) +
 facetmaps
 
 #Find a way to visualize my tmaps interactively on github
+tmap_save(facetmaps, "scripts/modelling/graphics/interactivemaps/my_map.html")
 
 #Plot the cases since 2015 for all the facilities
 
@@ -125,8 +126,8 @@ g + gghighlight(facility == "Kasungu District Hospital")
 
 # animate the top 20 facilities and how the cases change with time
 
-g + transition_reveal(date)
-
+save = g + transition_reveal(date)
+#anim_save("scripts/modelling/graphics/cases_time.gif", save)
 #--- Top ten
 top_10 = c("Salima District Hospital", "Nkhotakota District Hospital","	
 Kasungu District Hospital","Nkhata Bay District Hospital", "Balaka District Hospital", "Mulanje District Hospital", "Mwanza District Hospital", "Machinga District Hospital", "Mponela Rural Hospital", "Chintheche Rural Hospital")
