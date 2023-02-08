@@ -27,4 +27,24 @@ It is of interest to understand why some facilities report high malaria cases th
 | Access to Anti malaria treatment          |                 |        |
 | Implementation of vector control programs |                 |        |
 
-: Possible explanatory variables for differences in malaria transmission (Source: WHO)
+Possible explanatory variables for differences in malaria transmission (Source: WHO)
+
+**Model development**
+
+#Present the modelling framework in mathematical language
+
+
+**Model outputs**
+#Present what the model say
+
+**Interpletation of the outputs**
+#Interplate what the model say
+
+**Use the model alone to try to predict cases**
+#Come up with trendlines of malaria cases based on the factors considered
+
+**Study strenght and limitations**
+#Difficult to find data at a resolution (spatio and temporal) equivalent to modelled unit
+#Poor ability of the catchment area estimation method at deducing catchments for locations with high density of health facilities (i.e. urban communities)
+
+
