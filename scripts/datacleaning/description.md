@@ -126,3 +126,10 @@ The developed procedure has been applied on data that was downloaded from DHIS2 
 In the final data file, we have a row for each of the health facilities and columns representing each time point (months). The structure of this file will easily enable joining of malaria case data to health facilities geographical coordinates.
 
 ![](graphics/final.png)
+
+**Plotting data completeness**
+
+On Y put facilitie and on x put time
+- Some facilities started reporting later
+
+Indicate on facilities that have been discarded and thta this has to be improved in the future
