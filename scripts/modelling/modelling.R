@@ -200,7 +200,60 @@ res <- inla(cases ~
               f(idarea, model ='besag', graph = malawi_graph, scale.model =  TRUE),
             E = pop.2020_07_01, family = "poisson", data = map_sf2, verbose = TRUE)
 
+
+#----- Checking results -----#
 summary(res)
+res$summary.fixed[, c("mean", "0.025quant", "0.975quant")] ## Fixed effects
+res$summary.fitted.values[, "mean"] ## Fitted values
+res$summary.hyperpar[, c("mean", "0.025quant", "0.975quant")] ##  Hyperparameters
+res$summary.random$field ##  Random effects
+res$marginals.fixed ## Posterior marginal distributions for predictors
+res$marginals.hyperpar ## Posterior marginal distributions for hyperparameters
+plot.mar.fixed(res) ## Custom function to plot marginal distributions of fixed effects
+plot.mar.hyper(res) ## Custom function to plot marginal distributions of hyperparameters
+
+## Build tables with all effects
+tab1 <- res$summary.fixed[, c("mean", "0.025quant", "0.975quant")] %>%
+  rename(mean_2018 = 'mean', Lci_2018 = '0.025quant', Uci_2018 = '0.975quant')
+
+
+
+#Extension
+##significacncia betas
+round(res$summary.fixed,6)
+
+##densidad betas
+
+library(reshape2)
+mf.B<-melt(res$marginals.fixed)
+cf.B <- spread(mf.B,Var2,value)
+names(cf.B)[2] <- "parameter"
+library(ggplot2)
+x11()
+ggplot(cf.B,aes(x=x,y=y)) + geom_line()+facet_wrap(~ parameter,
+                                                   scales="free") + geom_vline(xintercept=0) + ylab("density")
+
+
+##interpretacion betas
+prob.malaria <- inla.tmarginal(function(x) exp(x)/(1+exp(x)),
+                               res$marginals.fixed[[1]])
+inla.zmarginal(prob.malaria)
+
+bin1<-inla.emarginal(exp, res$marginals.fixed$valor)
+bin2<-inla.emarginal(exp, res$marginals.fixed$valor_1)
+bin3<-inla.emarginal(exp, res$marginals.fixed$deng_total)
+bin4<-inla.emarginal(exp, res$marginals.fixed$chic_total)
+bin5<-inla.emarginal(exp, res$marginals.fixed$zika_total)
+bin6<-inla.emarginal(exp, res$marginals.fixed$bosque_std)
+bin7<-inla.emarginal(exp, res$marginals.fixed$preci_std)
+bin8<-inla.emarginal(exp, res$marginals.fixed$alt_med_std)
+round((c(bin1,bin2,bin3,bin4,bin5,bin6,bin7,bin8)-1)*100,6)
+print(c(bin1,bin2,bin3,bin4,bin5,bin6,bin7,bin8))
+
+Binomial.NI<-round(res$summary.fixed,6)$mean*100
+###
+
+
 
 
 #----- INLA Keep on crashing
