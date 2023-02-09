@@ -10,7 +10,7 @@ It is also well known that malaria is seasonal - cases of malaria peak during th
 
 **Explaining the observed patterns?**
 
-It is of interest to understand why some facilities report high malaria cases than others. Obviously, differences in population that is served by a facility can explain this (a facility that serve 10,000 people is expected to report more cases than a facility that serve only 100 people). But there can be more to this question. Environmental factors such as existence of permanent water bodies that sustain mosquito population can be one reason that can equally contribute to more malaria cases in one location and its absence can explain why some facilities report less cases. This list can extend to morphological characteristics such as elevation, and climatic parameters such as temperature and precipitation. The World Health Organization (WHO) indicated that malaria cases might also vary because of socio-economic factors, existence of vector control programs and accessibility of mosquito nets. In this section of the study, we intend to quantify spatio-temporal patterns of malaria cases, and model it to available environmental, climatic and socio-economic data to explain the observed patterns. This modelling use a poisson model implemented using Integrated Nested Laplace Approximation (INLA) implemented in R environment.
+It is of interest to understand why some facilities report high malaria cases than others. Obviously, differences in population that is served by a facility can explain this (a facility that serve 10,000 people is expected to report more cases than a facility that serve only 100 people). But there can be more to this question. Environmental factors such as existence of permanent water bodies that sustain mosquito population can be one reason that can equally contribute to more malaria cases in one location and its absence can explain why some facilities report less cases. This list can extend to morphological characteristics such as elevation, and climatic parameters such as temperature and precipitation. The World Health Organization (WHO) indicated that malaria cases might also vary because of socio-economic factors, existence of vector control programs and accessibility of mosquito nets. In this section of the study, we intend to quantify spatio-temporal patterns of malaria cases, and model it to available environmental, climatic and socio-economic data to explain the observed patterns.
 
 **Data resources**
 
@@ -47,13 +47,51 @@ $$
    GLM = log link
 $$
 
+So we can present our model as below
+
+$$
+  log(\mu)_{ij}) = X_1 + X_2 + X_3 ...
+$$
+
+But we know that cases of malaria alone cannot be used to describe the general disease burden - districts have different populations. One obvious way of taking this into account is by calculating the proportion of the population that reported (such approach include the use of Standardized Morbility Ratio). However, in this work, we incorporated population as an offset, and this can be presented as below
+
+$$
+  log(\mu)_{ij}) = X_1 + X_2 + X_3 + offset
+$$
+
+Suffice to say
+
+$$
+  log(\mu)_{ij}) = X_1 + X_2 + X_3 + offset
+$$
+
+Thus if possible explanatory variables are denoted to have fixed effect $$XB$$. The model can be written as
+
+$$
+  log(\mu)_{ij}) = XB + offset
+$$
+
 #Add necessary spaces
 
-But we also know that the cases can be affected by simply time of the year (a month that has more cases can influence other months to have more cases) or location of the facility (a location with more cases is likely to influence its neighbors to have more cases). We have added this as a random effect.
+But we also know that the cases can be affected by simply time of the year (a month that has more cases can influence other months to have more cases) or location of the facility (a location with more cases is likely to influence its neighbors to have more cases). We have added these as random effects- one to capture spatial correlation $Z_i$ and temporal correlation $Q_j$.
 
-#Present the modelling framework in mathematical language
+$$
+  log(\mu)_{ij}) = XB + offset + Z_i + Q_j
+$$
+
+The modelling has been implemented using Integrated Nested Laplace Approximation (INLA) R package.
+
+#Check related publications on quality of the presentation of the mathematical notations. Equally check with James on whether or not there are areas to improve the presentation of the modelling framework.
 
 **Model outputs**
+
+#Matrix definition
+
+#MCMC
+
+#Posterior
+
+#Rate Ratios (Mapping them)
 
 #Present what the model say
 
