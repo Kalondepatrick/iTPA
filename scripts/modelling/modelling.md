@@ -31,7 +31,13 @@ Possible explanatory variables for differences in malaria transmission (Source: 
 
 **Model development**
 
-Malaria cases have been estimated for each facility and month using a statistical model. The model assumes that malaria cases $Y$ $ij$ observed at a facility $i$ and year $j$ are modeled as:
+Malaria cases have been estimated for each facility and month using a statistical model. We model assumes that malaria cases $Y~ij~$ observed at a facility $i$ and year $j$ using a poisson distribution
+
+are modeled as:
+
+$$
+   Y~ij~  = poisson distribution
+$$
 
 But we also know that the cases can be affected by simply time of the year (a month that has more cases can influence other months to have more cases) or location of the facility (a location with more cases is likely to influence its neighbors to have more cases).
 
