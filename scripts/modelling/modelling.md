@@ -1,17 +1,16 @@
 **Our data at glance**
 
-The goal of this project was to explore mapping of malaria cases at sub-district level. We have first developed district level maps of malaria (cummulative cases and monthly cases for the entire study period). 
+The goal of this project was to explore mapping of malaria cases at sub-district level. We have first developed district level maps of malaria (cummulative cases and monthly cases for the entire study period).
 
 #Add an interactive map
 
-We have equally showed how malaria varies across districts with time. 
+We have equally showed how malaria varies across districts with time.
 
-#Add an animated graph  
-
+#Add an animated graph
 
 Based on the cases reported on DHIS , it has been observed that during the study period, majority of the malaria cases were reported in few facilities. These facilities include district hospitals such as Salima, Kasungu, Nkhotakota District Hospital, Nkhata Bay, Balaka, Mulanje, Mwanza and Machinga; rural hospitals such as Mponela and Chintheche. The full details of the cumulative cases at sub-district level has been presented in the figure below:
 
-![Cumulative malaria cases during the study period](graphics/totalcases.png)
+![malaria cases during the study period](graphics/cases_Space_time.gif)
 
 It is also well known that malaria is seasonal - cases of malaria peak during the rain-season and they drop during the dry-season. Irregardless of that, there are variations in malaria cases across the facilities with time. Below the changes in malaria cases with time have been visualized.
 
@@ -112,7 +111,6 @@ The modelling has been implemented using Integrated Nested Laplace Approximation
 
 #Come up with trendlines of malaria cases based on the factors considered
 
-**Study strength and limitations** 
+**Study strength and limitations**
 
-The study has shown that malaria varies substantially across facilities. District level mapping can be misleading as they do not capture fine-scale patterns. This can hinder development of more targeted malaria control programs.
-#Difficult to find data at a resolution (spatio and temporal) equivalent to modelled unit #Poor ability of the catchment area estimation method at deducing catchments for locations with high density of health facilities (i.e. urban communities)
+The study has shown that malaria varies substantially across facilities. District level mapping can be misleading as they do not capture fine-scale patterns. This can hinder development of more targeted malaria control programs. #Difficult to find data at a resolution (spatio and temporal) equivalent to modelled unit #Poor ability of the catchment area estimation method at deducing catchments for locations with high density of health facilities (i.e. urban communities)

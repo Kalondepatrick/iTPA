@@ -20,7 +20,10 @@ pacman::p_load(sf,               # Spatial files
                dplyr,
                klaR,
                tidyr,
-               gghighlight
+               gghighlight,
+               rio,            #  import/export
+               naniar,         #  assess and visualize missingness
+               mice           #missing data imputation
                
 )
 
@@ -173,6 +176,8 @@ c = ggplot(map_sf2) + geom_sf(aes(fill = cases)) +
   transition_time(date) +
   labs(title = "Month: {round(frame_time, 0)}")
 c
+
+#anim_save("scripts/modelling/graphics/cases_space_time.gif", c)
 
 #----  Adding covariates  ----#
 #---- Elevation
@@ -340,9 +345,17 @@ b = ggplot(map_sf2) + geom_sf(aes(fill = RR)) +
 b
 
 
+#------- Visualizing missing values ------# 
+# import the linelist
+inde = map_sf2
+drop = "pop.2020_07_01"
+inde2 = inde[,!(names(inde)%in%drop)]
+inde3 = spread(inde2, facility, cases)
+gg_miss_fct(inde3, date)
 
-
-
+gg_miss_span(inde3,
+             var = date,
+             span_every = 1500)
 
 #---- Areas of improvement
 #Add a basemap
