@@ -58,25 +58,25 @@ $$
 So we can present our model as below
 
 $$
-  log(\mu)_{ij}) = X_1 + X_2 + X_3 ...
+  (log(\mu)_{ij}) = X_1 + X_2 + X_3 ...
 $$
 
 But we know that cases of malaria alone cannot be used to describe the general disease burden - districts have different populations. One obvious way of taking this into account is by calculating the proportion of the population that reported (such approach include the use of Standardized Morbility Ratio). However, in this work, we incorporated population as an offset, and this can be presented as below
 
 $$
-  log(\mu)_{ij}) = X_1 + X_2 + X_3 + offset
+  (log(\mu)_{ij}) = X_1 + X_2 + X_3 + offset
 $$
 
 Suffice to say
 
 $$
-  log(\mu)_{ij}) = X_1 + X_2 + X_3 + offset
+  (log(\mu)_{ij}) = X_1 + X_2 + X_3 + offset
 $$
 
 Thus if possible explanatory variables are denoted to have fixed effect $$XB$$. The model can be written as
 
 $$
-  log(\mu)_{ij}) = XB + offset
+  (log(\mu)_{ij}) = XB + offset
 $$
 
 #Add necessary spaces
@@ -84,7 +84,7 @@ $$
 But we also know that the cases can be affected by simply time of the year (a month that has more cases can influence other months to have more cases) or location of the facility (a location with more cases is likely to influence its neighbors to have more cases). We have added these as random effects- one to capture spatial correlation $Z_i$ and temporal correlation $Q_j$.
 
 $$
-  log(\mu)_{ij}) = XB + offset + Z_i + Q_j
+  (log(\mu)_{ij}) = XB + offset + Z_i + Q_j
 $$
 
 The modelling has been implemented using Integrated Nested Laplace Approximation (INLA) R package.
