@@ -22,18 +22,18 @@ It is of interest to understand why some facilities report high malaria cases th
 
 **Data resources**
 
-| Variable                                  | Source and year | Remark |
-|-------------------------------------------|-----------------|--------|
-| Altitude                                  | USGS            |        |
-| Temperature                               |                 |        |
-| Humidity                                  |                 |        |
-| Rainfall                                  |                 |        |
-| Proximity to water bodies                 |                 |        |
-| Land Use                                  |                 |        |
-| Vector distribution                       |                 |        |
-| Social demographic characteristics        |                 |        |
-| Access to Anti malaria treatment          |                 |        |
-| Implementation of vector control programs |                 |        |
+| Variable                                  | Source and year                                                                                                                                                                     | Remark |
+|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| Altitude                                  | [USGS](https://www.usgs.gov/centers/eros/science/usgs-eros-archive-digital-elevation-shuttle-radar-topography-mission-srtm-1?qt-science_center_objects=0#qt-science_center_objects) |        |
+| Temperature                               |                                                                                                                                                                                     |        |
+| Humidity                                  |                                                                                                                                                                                     |        |
+| Rainfall                                  |                                                                                                                                                                                     |        |
+| Proximity to water bodies                 |                                                                                                                                                                                     |        |
+| Land Use                                  | [ESA 2020 WorldCover Maps](https://esa-worldcover.org/en/data-access)                                                                                                               |        |
+| Vector distribution                       |                                                                                                                                                                                     |        |
+| Social demographic characteristics        | [2018 National Census](http://www.nsomalawi.mw/index.php?option=com_content&view=article&id=226&Itemid=6)                                                                           |        |
+| Access to Anti malaria treatment          |                                                                                                                                                                                     |        |
+| Implementation of vector control programs |                                                                                                                                                                                     |        |
 
 Possible explanatory variables for differences in malaria transmission (Source: WHO)
 
@@ -78,6 +78,10 @@ Thus if possible explanatory variables are denoted to have fixed effect $$XB$$. 
 $$
   (log(\mu)_{ij}) = XB + offset
 $$
+
+We have considered explored the effects of elevation, dominant land cover and ITN distribution on observed malaria cases.
+
+# DO THIS NOW
 
 #Add necessary spaces
 
