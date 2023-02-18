@@ -16,6 +16,8 @@ It is also well known that malaria is seasonal - cases of malaria peak during th
 
 ![](graphics/cases_time.gif)
 
+## How does observing malaria at ditrict level differ from sub-district level?
+
 **Explaining the observed patterns?**
 
 It is of interest to understand why some facilities report high malaria cases than others. Obviously, differences in population that is served by a facility can explain this (a facility that serve 10,000 people is expected to report more cases than a facility that serve only 100 people). But there can be more to this question. Environmental factors such as existence of permanent water bodies that sustain mosquito population can be one reason that can equally contribute to more malaria cases in one location and its absence can explain why some facilities report less cases. This list can extend to morphological characteristics such as elevation, and climatic parameters such as temperature and precipitation. The World Health Organization (WHO) indicated that malaria cases might also vary because of socio-economic factors, existence of vector control programs and accessibility of mosquito nets. In this section of the study, we intend to quantify spatio-temporal patterns of malaria cases, and model it to available environmental, climatic and socio-economic data to explain the observed patterns.

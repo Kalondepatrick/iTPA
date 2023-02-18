@@ -180,7 +180,61 @@ c
 #anim_save("scripts/modelling/graphics/cases_space_time.gif", c)
 
 #----  Adding covariates  ----#
+
+
+#----- Adding covariates
+
+library(sf)
+library(tidyverse)
+
+facilities.districts = read_sf("inputs/facilities/joined/fac_distict.shp")
+# Rename columns
+# Syntax rename with condition
+colnames(facilities.districts)[colnames(facilities.districts) == "ADM2_EN"] ="Districts"
+ITN = read_csv("inputs/Co-variates/ITN/ITN_2018.csv")
+
+# replace values 
+#ITN[ITN == "Mzimba S"] <- "Mzimba"
+#ITN[ITN == "Mzimba N"] <- "Mzimba"
+#ITN[ITN == "Nkhatabay"] <- "Nkhata Bay"
+library(dplyr)
+
+ITN_PJ2 = left_join(facilities.districts, ITN, by ="Districts")
+colnames(ITN_PJ2)[colnames(ITN_PJ2) == "Total"] ="ITN"
+colnames(ITN_PJ2)[colnames(ITN_PJ2) == "Name"] ="facility"
+library(tidyverse)
+ITN_data = ITN_PJ2 %>%
+  dplyr::select('facility','ITN')
+
+ITN_data = st_set_geometry(ITN_data, NULL)
+#Remove rows with empty ITN 
+ITN_data = ITN_data %>% drop_na(ITN) 
+
+# Join ITN data to orignal dataset
+map_sf_test = left_join(map_sf2, ITN_data, by ="facility")
+
+#Check facilities where join was not sucessful
+map_sf_test2 = anti_join(map_sf2, ITN_data, by ="facility")
+#This will be fixed later | Find out the source of the problem
+
 #---- Elevation
+#Read elevation rasters
+elevation =raster::raster("../../../Resources/Data/malawi/elevation/combined/elevation_mw.tif")
+
+library(stars)
+library(sf)
+
+#Change format of catchment areas
+#catch = as(map_sf, "SPatial")
+elevation_mask = mask(elevation, mask = map_sf)
+
+#crop is also the same
+elevation_cropped = crop(elevation_mask, map_sf)
+
+# Extracting values
+
+vals = extract(elevation_cropped, map_sf,fun = mean)
+
 
 #---- Modelling fitting ----#
 
@@ -204,6 +258,17 @@ res <- inla(cases ~
               f(idate, model = 'iid') +
               f(idarea, model ='besag', graph = malawi_graph, scale.model =  TRUE),
             E = pop.2020_07_01, family = "poisson", data = map_sf2, verbose = TRUE)
+
+
+
+
+#This one works
+
+res <- inla(cases ~  
+              f(idate, model = 'iid') +
+              f(idarea, model ='besag', graph = malawi_graph, scale.model =  TRUE),
+            E = pop.2020_07_01, family = "poisson", data = map_sf2, verbose = TRUE)
+
 
 
 #----- Checking results -----#
